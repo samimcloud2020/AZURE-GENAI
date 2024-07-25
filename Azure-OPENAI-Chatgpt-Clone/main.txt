@@ -1,12 +1,16 @@
 # Local
-
+git clone https://github.com/mckaywrigley/chatbot-ui.git
+docker build -t chatgpt-ui .
 docker run -e OPENAI_API_HOST=<PASTE_HERE> `
            -e OPENAI_API_KEY=<PASTE_HERE> `
            -e OPENAI_API_TYPE=azure `
            -e DEFAULT_MODEL=gpt-35-turbo `
            -e OPENAI_API_VERSION=2023-03-15-preview `
            -e AZURE_DEPLOYMENT_ID=gpt-35-turbo `
-           -p 3000:3000 kamalrathnayake/chatgpt-ui
+           -p 3000:3000 samimbsnl/chatgpt-ui
+docker tag chatgpt-ui      samimbsnl/chatgpt-ui
+docker push samimbsnl/chatgpt-ui
+**********************************************************************************************************************************************
 
 # Azure Deployment
 
