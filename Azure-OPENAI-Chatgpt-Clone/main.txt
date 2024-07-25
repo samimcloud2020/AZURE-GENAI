@@ -1,0 +1,30 @@
+# Local
+
+docker run -e OPENAI_API_HOST=<PASTE_HERE> `
+           -e OPENAI_API_KEY=<PASTE_HERE> `
+           -e OPENAI_API_TYPE=azure `
+           -e DEFAULT_MODEL=gpt-35-turbo `
+           -e OPENAI_API_VERSION=2023-03-15-preview `
+           -e AZURE_DEPLOYMENT_ID=gpt-35-turbo `
+           -p 3000:3000 kamalrathnayake/chatgpt-ui
+
+# Azure Deployment
+
+$grp = "rg-oai-service"
+$loc = "uksouth"
+$cne = "cne-gpt-ui"
+
+az group create --resource-group $grp --location $loc
+
+az containerapp env create -n $cne -g $grp --location $loc
+
+az containerapp create -n capp-gpt-ui `
+                       -g $grp `
+                       --image kamalrathnayake/chatgpt-ui `
+                       --environment $cne `
+                       --env-vars OPENAI_API_HOST=<PASTE_HERE> `
+                                  OPENAI_API_KEY=<PASTE_HERE> `
+                                  OPENAI_API_TYPE=azure `
+                                  DEFAULT_MODEL=gpt-35-turbo `
+                                  OPENAI_API_VERSION=2023-03-15-preview `
+                                  AZURE_DEPLOYMENT_ID=gpt-35-turbo
